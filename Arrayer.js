@@ -183,7 +183,7 @@ var countries = [
   },
   {
     name: "Czech Republic",
-    continent: " Europe ",
+    continent: "Europe",
     population: 10556351,
     pFemale: 0.509
   },
@@ -207,17 +207,32 @@ console.log(totalPopulation);
 
 //c. Hur många bor i Europa?
 
-const europePopulation = 0;
+const europePopulation = countries.reduce(function(total, value) { if (value.continent === "Europe") { return total + value.population; } else { return total; } } , 0);
 console.log(europePopulation);
 
 //d. Vilket land har minst befolkning i världen?
 
-const smallestPopulation = "None";
+//const smallestPopulation = countries.reduce(function(smallest, value) { if (value.population < smallest.population || smallest == null) { smallest = value; return smallest; } }, smallest = null); 
+
+const smallestPopulation = countries.sort(function (a, b) {return (a.population > b.population) ? 1 : ((b.population > a.population) ? -1 : 0);})[0].name;
 console.log(smallestPopulation);
+
+
+const leastPopu2 = countries.reduce(function(previousVal, value)
+        {if(previousVal.population < value.population) {return previousVal}
+        else {return value}})
+console.log(leastPopu2.name);
+
 
 //e. Vad är medelbefolkningen för länder i Afrika?
 
-const averageAfrica = 0;
+const averageAfrica = countries.reduce(function (value, country) {
+  if (country.continent === "Europe") {
+    value.sum += country.population;
+    value.avg = value.sum / ++value.count;
+  }
+  return value;
+}, { sum: 0, count: 0, avg: 0 }).avg;
 console.log(averageAfrica);
 
 //f. Finns det något land som har mer än 50 000 000 invånare?
