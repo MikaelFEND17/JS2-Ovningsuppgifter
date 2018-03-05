@@ -219,15 +219,19 @@ console.log(smallestPopulation);
 
 
 const leastPopu2 = countries.reduce(function(previousVal, value)
-        {if(previousVal.population < value.population) {return previousVal}
-        else {return value}})
+        { 
+          if (previousVal.population < value.population) { return previousVal; }
+          else { return value; } 
+        })
+
 console.log(leastPopu2.name);
 
 
 //e. Vad är medelbefolkningen för länder i Afrika?
 
 const averageAfrica = countries.reduce(function (value, country) {
-  if (country.continent === "Europe") {
+  if (country.continent === "Europe") 
+  {
     value.sum += country.population;
     value.avg = value.sum / ++value.count;
   }
@@ -237,10 +241,24 @@ console.log(averageAfrica);
 
 //f. Finns det något land som har mer än 50 000 000 invånare?
 
-const countryAboveFiftyMillion = 0;
+const countryAboveFiftyMillion = countries.reduce(function (value, country) {
+  if (country.population >= 50000000) 
+  {
+    value.country.push({name: country.name, population: country.population});
+    value.count++;
+  }
+  return value;
+}, { count: 0, country: [] });
 console.log(countryAboveFiftyMillion)
 
 //g. Vilka länder har mellan 8 och 15 miljoner invånare?
 
-const countriesBetweenEightAndFifteen = 0;
+const countriesBetweenEightAndFifteen = countries.reduce(function (value, country) {
+  if (country.population >= 8000000 && country.population <= 15000000) 
+  {
+    value.country.push({name: country.name, population: country.population});
+    value.count++;
+  }
+  return value;
+}, { count: 0, country: [] });;
 console.log(countriesBetweenEightAndFifteen);
