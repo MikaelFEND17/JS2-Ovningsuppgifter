@@ -155,7 +155,17 @@ function StarWarsAPI()
 
     this.GetPersons = function()
     {
-        //url https://swapi.co/api/people
+        fetch('https://swapi.co/api/people').then(function () 
+        {
+            if (someCondition) 
+            {
+                resultFound = true;
+            }
+            else 
+            {
+                GetPersons();
+            }
+        });
     }
 }
 
