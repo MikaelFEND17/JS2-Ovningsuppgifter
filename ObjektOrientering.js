@@ -20,6 +20,7 @@
 //- En motorcykel kan aldrig lasta något dvs bränsleförbrukningen är alltid antal mil *förbrukning.
 //Skapa instanser av de olika fordonen och anropa metoden för att visa hur mycket
 //bränsle de förbrukar och skriv ut det på consolen.
+
 //4. Ofta får man väldigt mycket data från ett API anrop men är bara intresserad av vissa
 //värden. Du skall nu göra en övning där du skapar en egen klass i din applikation som
 //hanterar bara vissa värden i svaret från ett API anrop.

@@ -147,25 +147,75 @@ function Webshop()
         this.buttonCart = document.createElement("button");
         let buttonCartText = document.createTextNode("Cart");
         this.buttonCart.appendChild(buttonCartText);
+        this.buttonCart.addEventListener("click", () => { this.ShowCart(); });
         body.appendChild(this.buttonCart);
 
         let br = document.createElement("br");
         body.appendChild(br);
 
-        for (product of products)
+        for (let product of this.products.products)
         {
             let div = document.createElement("div");
+            let span = document.createElement("span");
+            span.innerHTML= product.name + " - " + product.price + ":-";
 
+            div.appendChild(span);
+
+            let buttonProduct = document.createElement("button");
+            let buttonProductBuy = document.createTextNode("Buy");
+            let id = product.id;
+            buttonProduct.appendChild(buttonProductBuy);
+            buttonProduct.addEventListener("click", () => this.AddToCart(id))
+
+            div.appendChild(buttonProduct);
 
             body.appendChild(div);
         }
     }
 
-    this.PresentProductsAsHTML = function()
+    this.AddToCart = function(aID)
     {
-
+        this.cart.push(this.products.products[aID-1]);
+        sessionStorage.setItem("cart", JSON.stringify(this.cart));
     }
-}
+
+    this.ShowCart = function()
+    {
+        let cart = JSON.parse(sessionStorage.getItem("cart"));
+
+        let count = 0;
+        let price = 0;
+
+        let hr = document.createElement("hr");
+        body.appendChild(hr);
+
+        let strong = document.createElement("strong");
+        strong.innerText = "Cart Items:";
+
+        body.appendChild(strong);
+
+        for (let product of cart)
+        {
+            let div = document.createElement("div");
+            let span = document.createElement("div");
+            span.innerHTML= product.name + " - " + product.price + ":-";
+            div.appendChild(span)
+
+            body.appendChild(div);
+
+            count++;
+            price += parseInt(product.price);
+        }
+
+        let summarySpan = document.createElement("span");
+        summarySpan.innerHTML = "Items: " + count + " Price total: " + price;
+        
+        body.appendChild(summarySpan);
+
+        hr = document.createElement("hr");
+        body.appendChild(hr);
+    }
+} 
 
 //5. Gör om uppgiften så att varukorgen hamnar i en cookie. Vad är den stora skillnaden
 //jämfört med att använda web storage?
