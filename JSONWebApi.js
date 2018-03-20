@@ -83,3 +83,11 @@ for (student of klass.students)
 {
     console.log(student.name + " " + student.email);
 }
+
+//7. Bygg ihop flera saker så det blir en applikation där man först kan söka och sedan klicka
+//vidare för att se detaljer om filmer, personer och sedan det som finns kopplat till dessa
+
+//8. Hitta ett annat API som du kan testa att använda tex Slacks API
+//https://any-api.com/slack_com/slack_com/docs/API_Description
+//http://apikatalogen.se/
+//https://jsonplaceholder.typicode.com/

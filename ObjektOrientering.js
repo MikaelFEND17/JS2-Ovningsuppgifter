@@ -146,32 +146,55 @@ console.log(motorcykel1.TotalBransleForbrukning());
 //en array med objekt av din egen Person klass.
 //- Anropa funktionen och ta emot resultatet. Testa att skriva ut det. 
 
-let swAPI = new StarWarsAPI();
-swAPI.GetPersons();
 
-function StarWarsAPI()
+class StarWarsAPI
 {
-    this.persons = new Array();
-
-    this.GetPersons = function()
+    constructor()
     {
-        fetch('https://swapi.co/api/people').then(function () 
+        this.persons = new Array();
+    }
+
+    async LoadPersons()
+    {
+        await this.GetPersons('https://swapi.co/api/people', this.persons);
+
+        console.log(swAPI.GetPersonsArray());
+    }
+
+    async GetPersons(aURL, aArray)
+    {
+        const response = await fetch(aURL);
+        const json = await response.json();
+        
+        for (let person of json.results)
         {
-            if (someCondition) 
-            {
-                resultFound = true;
-            }
-            else 
-            {
-                GetPersons();
-            }
-        });
+            let swPerson = await new Person(person.name, person.height, person.mass);
+            await aArray.push(swPerson);
+        }
+
+        if (json.next !== null)
+        {
+            await this.GetPersons(json.next, aArray);
+        }
+    }
+
+    GetPersonsArray()
+    {
+        return this.persons;
     }
 }
 
-function Person()
+class Person
 {
-    this.name;
-    this.height;
-    this.mass;
+    constructor(aName, aHeight, aMass)
+    {    
+        this.name = aName;
+        this.height = aHeight;
+        this.mass = aMass;
+    }
+
 }
+
+let swAPI = new StarWarsAPI();
+swAPI.LoadPersons();
+
